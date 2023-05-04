@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-// const mongoose = new Mongoose();
 const { Schema } = mongoose;
 export const objectId = new mongoose.Types.ObjectId();
 

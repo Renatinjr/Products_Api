@@ -1,15 +1,13 @@
 import { Request, Response } from "express";
-import { ProductModel, Products, objectId } from "../models/productSchema";
-import { connection } from "../database/connection";
-type products = Products;
+import { ProductModel, Products } from "../models/productSchema";
+import { client } from "../database/connection";
 
 export const insertProduct = async (req: Request, res: Response) => {
-  const body: products = req.body;
+  const body: Products = req.body;
+
   try {
-    console.log("Dentro do insert");
-    await connection;
+    client;
     await ProductModel.collection.insertOne({
-      _id: objectId,
       name: body.name,
       price: body.price,
       quantity: body.quantity,
@@ -17,10 +15,8 @@ export const insertProduct = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.log(error);
-  } finally {
-    console.log("disconectado");
-    (await connection).disconnect();
+    return res.status(500).json({ messege: "Erro ao gravar" });
   }
 
-  return res.status(200).json({ messege: "Ok" });
+  return res.status(201).json({ messege: "Ok" });
 };
