@@ -1,11 +1,12 @@
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
 
 const url = "mongodb://127.0.0.1/db_api";
 
-export const connectToDataBase = async (): Promise<any> => {
+export const connectToDataBase = async (): Promise<
+  Mongoose | undefined | void
+> => {
   try {
-    const res = await mongoose.connect(url);
-    return res;
+    return await mongoose.connect(url);
   } catch (error) {
     console.log(error);
   }
