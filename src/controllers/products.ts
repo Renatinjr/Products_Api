@@ -2,10 +2,6 @@ import { Request, Response } from "express";
 import { ProductModel, Products } from "../models/productSchema";
 import { client } from "../database/connection";
 
-// type RequestPararm = {
-//   _id: string;
-// };
-
 export const insertProduct = async (req: Request, res: Response) => {
   const body: Products = req.body;
 
@@ -46,5 +42,28 @@ export const findOneProduct = async (req: Request, res: Response) => {
   } catch (error) {
     console.log(error);
     return res.status(404).json({ messege: "Not found" });
+  }
+};
+
+export const updateOne = async (req: Request, res: Response) => {
+  try {
+    await client;
+    // const id = req.params.id;
+    const body: Products = req.body;
+
+    const responseDb = await ProductModel.updateOne({}, {}).set(
+      { quantity: 10 },
+      {
+        name: body.name,
+        price: body.price,
+        quantity: body.quantity,
+        image_url: body.image_url,
+      }
+    );
+    console.log(responseDb);
+    res.status(200).json({ messege: "ok" });
+  } catch (error) {
+    console.log(error);
+    res.status(204).json({ messege: "No content" });
   }
 };
