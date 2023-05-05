@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
+require("dotenv").config();
 
-const url = "mongodb://127.0.0.1/db_api";
-
-export const client = mongoose.connect(url);
+export const client = mongoose.connect(process.env.SERVER_URL ?? "");

@@ -1,3 +1,4 @@
+require("dotenv").config();
 import express, { Express } from "express";
 import http from "http";
 import morgan from "morgan";
@@ -34,5 +35,5 @@ router.use((req, res) => {
 
 const httpServer = http.createServer(router);
 
-const port = 8080;
+const port = process.env.SERVER_PORT;
 httpServer.listen(port, () => console.log(`Server running in port ${port}`));
