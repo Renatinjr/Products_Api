@@ -26,13 +26,13 @@ export const insertProduct = async (req: Request, res: Response) => {
 export const getProducts = async (req: Request, res: Response) => {
   console.log(req.body);
   try {
-    client;
-    await ProductModel.find({});
+    await client;
+    const response = await ProductModel.find({});
+    return res.status(200).json(response);
   } catch (error) {
     console.log(Error);
     return res.status(404).json({ messege: "Not found" });
   }
-  return res.status(200).json({ status: "success" });
 };
 
 export const findOneProduct = async (req: Request, res: Response) => {
@@ -40,12 +40,12 @@ export const findOneProduct = async (req: Request, res: Response) => {
     const id = req.params.id;
 
     client;
-    ProductModel.findById(id);
+    const response = ProductModel.findById(id);
+    return res.status(200).json(response);
   } catch (error) {
     console.log(error);
     return res.status(404).json({ messege: "Not found" });
   }
-  return res.status(200).json({ status: "succeeded" });
 };
 
 export const updateOne = async (req: Request, res: Response) => {
