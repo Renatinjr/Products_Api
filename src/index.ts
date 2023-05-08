@@ -27,9 +27,8 @@ router.use("/", routes);
 
 router.use((req, res) => {
   console.log(req);
-  const error = new Error("Route notfounded");
   return res.status(404).json({
-    message: error.message,
+    message: "Router error",
   });
 });
 
