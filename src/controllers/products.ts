@@ -37,8 +37,9 @@ export const getProducts = async (req: Request, res: Response) => {
 
 export const findOneProduct = async (req: Request, res: Response) => {
   try {
-    client;
     const id = req.params.id;
+
+    client;
     const response = await ProductModel.findById(id);
     return res.status(200).json(response);
   } catch (error) {
@@ -49,16 +50,11 @@ export const findOneProduct = async (req: Request, res: Response) => {
 
 export const updateOne = async (req: Request, res: Response) => {
   try {
-    await client;
     const id = req.params.id;
     const body = await req.body;
 
-    console.log(body);
-    const responseDb = await ProductModel.findByIdAndUpdate(
-      { _id: new mongo.ObjectId(id) },
-      { $set: body }
-    );
-    console.log(responseDb);
+    await client;
+    await ProductModel.findByIdAndUpdate(id, body);
     return res.status(200).json({ messege: "ok" });
   } catch (error) {
     console.log(error);
