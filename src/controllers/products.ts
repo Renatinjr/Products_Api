@@ -61,3 +61,16 @@ export const updateOne = async (req: Request, res: Response) => {
     return res.status(204).json({ messege: "No content" });
   }
 };
+
+export const deleteOne = async (res: Response, req: Request) => {
+  try {
+    const id = req.params.id;
+    console.log(id);
+    await client;
+    await ProductModel.findByIdAndDelete(id);
+    return res.status(200).json({ status: "succecess" });
+  } catch (error) {
+    console.log(error);
+    return res.status(204).json({ messege: "Failed" });
+  }
+};
